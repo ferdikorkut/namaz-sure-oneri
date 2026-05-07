@@ -140,8 +140,8 @@ function ilkYukleme() {
 ilkYukleme();
 
 async function hicriTarihGetir() {
-  const CACHE_TARIH = 'hicri_tarih_v2';
-  const CACHE_GUN = 'hicri_gun_v2';
+  const CACHE_TARIH = 'hicri_tarih_v3';
+  const CACHE_GUN = 'hicri_gun_v3';
   const bugun = new Date().toISOString().slice(0, 10);
 
   try {

@@ -51,6 +51,14 @@ header p {
   text-transform: uppercase;
 }
 
+#hicri-tarih {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 1.25rem;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);

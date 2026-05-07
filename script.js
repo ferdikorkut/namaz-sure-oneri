@@ -138,3 +138,33 @@ function ilkYukleme() {
 }
 
 ilkYukleme();
+
+async function hicriTarihGetir() {
+  const CACHE_TARIH = 'hicri_tarih_v2';
+  const CACHE_GUN = 'hicri_gun_v2';
+  const bugun = new Date().toISOString().slice(0, 10);
+
+  try {
+    const kayitliGun = localStorage.getItem(CACHE_GUN);
+    const kayitliTarih = localStorage.getItem(CACHE_TARIH);
+    if (kayitliTarih && kayitliGun === bugun) {
+      document.getElementById('hicri-tarih').textContent = kayitliTarih;
+      return;
+    }
+  } catch(e) {}
+
+  try {
+    const res = await fetch('hicri.php');
+    const tarih = (await res.text()).trim();
+    if (!tarih) return;
+    document.getElementById('hicri-tarih').textContent = tarih;
+    try {
+      localStorage.setItem(CACHE_TARIH, tarih);
+      localStorage.setItem(CACHE_GUN, bugun);
+    } catch(e) {}
+  } catch(e) {
+    console.warn('[hicri] hata:', e);
+  }
+}
+
+hicriTarihGetir();

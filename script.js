@@ -154,8 +154,13 @@ async function hicriTarihGetir() {
   } catch(e) {}
 
   try {
-    const res = await fetch('hicri.php');
-    const tarih = (await res.text()).trim();
+    const hedef = `https://gadget.turktakvim.com/gadget.php?pg=1&sid=5753&cityID=5753&_=${Date.now()}`;
+    const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(hedef));
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const div = doc.getElementById('hicritarih');
+    if (!div) return;
+    const tarih = div.textContent.trim();
     if (!tarih) return;
     document.getElementById('hicri-tarih').textContent = tarih;
     try {

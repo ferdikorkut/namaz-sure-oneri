@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Namaz Süreleri</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --border: #e0ddd6;
+      --text-primary: #1a1916;
+      --text-secondary: #6b6860;
+      --text-muted: #a8a59e;
+      --accent: #2d2d2a;
+      --btn-bg: #1a1916;
+      --btn-text: #f5f4f0;
+      --btn-hover: #3a3935;
+    }
+
+    body {
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      text-align: left;
+    }
+
+    header h1 {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+    }
+
+    header p {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .sure-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .sure-row:last-child {
+      border-bottom: none;
+    }
+
+    .sure-row.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sure-name {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      flex: 1;
+    }
+
+    .sure-ayet {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      min-width: 1.5rem;
+      text-align: right;
+    }
+
+    .sure-no {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      min-width: 2rem;
+      text-align: right;
+    }
+
+    .empty-state {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 0.5rem 0;
+    }
+
+    .counter {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-top: 0.6rem;
+      text-align: right;
+    }
+
+    .btn-wrap {
+      margin-top: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    button {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover { background: var(--btn-hover); }
+    button:active { transform: scale(0.98); }
+
+    .status {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Namaz Süreleri</h1>
+    <p>Kişisel sure önerisi</p>
+  </header>
+
+  <div class="card" id="card2">
+    <span class="card-label">2 Rekat</span>
+    <div id="sureler2"><div class="empty-state">—</div></div>
+    <div class="counter" id="counter2"></div>
+  </div>
+
+  <div class="card" id="card3">
+    <span class="card-label">3 Rekat</span>
+    <div id="sureler3"><div class="empty-state">—</div></div>
+    <div class="counter" id="counter3"></div>
+  </div>
+
+  <div class="btn-wrap">
+    <button onclick="yenile()">Yenile</button>
+    <span class="status" id="status"></span>
+  </div>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+const SURELER = [
+  { isim: "Âyetü'l-kürsî", no: 2,   ayet: 1  },
+  { isim: "Hüvallahüllezi",  no: 59,  ayet: 3  },
+  { isim: "Kadir",            no: 97,  ayet: 5  },
+  { isim: "Asr",              no: 103, ayet: 3  },
+  { isim: "Fil",              no: 105, ayet: 5  },
+  { isim: "Kureyş",           no: 106, ayet: 4  },
+  { isim: "Mâûn",             no: 107, ayet: 7  },
+  { isim: "Kevser",           no: 108, ayet: 3  },
+  { isim: "Kâfirûn",          no: 109, ayet: 6  },
+  { isim: "Nasr",             no: 110, ayet: 3  },
+  { isim: "Tebbet",           no: 111, ayet: 5  },
+  { isim: "İhlâs",            no: 112, ayet: 4  },
+  { isim: "Felâk",            no: 113, ayet: 5  },
+  { isim: "Nâs",              no: 114, ayet: 6  },
+];
+
+function gecerliMi(s1, s2) {
+  if (s2.no <= s1.no) return false;
+  if (s2.no - s1.no === 2) return false;
+  if (s1.isim !== "Âyetü'l-kürsî") {
+    if (s2.ayet > s1.ayet && s2.ayet - s1.ayet > 2) return false;
+  }
+  return true;
+}
+
+// Tüm geçerli kombinasyonları hesapla
+function hesaplaKombinasyonlar() {
+  const ikili = [];
+  const uclu = [];
+
+  for (let i = 0; i < SURELER.length; i++) {
+    for (let j = i + 1; j < SURELER.length; j++) {
+      if (gecerliMi(SURELER[i], SURELER[j])) {
+        ikili.push([i, j]);
+        for (let k = j + 1; k < SURELER.length; k++) {
+          if (gecerliMi(SURELER[j], SURELER[k])) {
+            uclu.push([i, j, k]);
+          }
+        }
+      }
+    }
+  }
+  return { ikili, uclu };
+}
+
+// Fisher-Yates shuffle
+function karistir(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// localStorage anahtar isimleri
+const KEY2 = 'namaz_havuz2';
+const KEY3 = 'namaz_havuz3';
+
+const { ikili, uclu } = hesaplaKombinasyonlar();
+
+// localStorage'dan havuzu yükle, yoksa yeni oluştur
+function havuzYukle(key, tumKombolar) {
+  try {
+    const kayitli = localStorage.getItem(key);
+    if (kayitli) {
+      const parsed = JSON.parse(kayitli);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch(e) {}
+  return karistir(tumKombolar);
+}
+
+// Havuzu localStorage'a kaydet
+function havuzKaydet(key, havuz) {
+  try {
+    localStorage.setItem(key, JSON.stringify(havuz));
+  } catch(e) {}
+}
+
+function sonrakiKombo(key, havuz, tumKombolar) {
+  if (havuz.length === 0) {
+    havuz.push(...karistir(tumKombolar));
+  }
+  const kombo = havuz.pop();
+  havuzKaydet(key, havuz);
+  return kombo;
+}
+
+function sureSatiri(sure) {
+  const div = document.createElement('div');
+  div.className = 'sure-row';
+  div.innerHTML = `
+    <span class="sure-name">${sure.isim}</span>
+    <span class="sure-ayet">${sure.ayet}</span>
+    <span class="sure-no">${sure.no}</span>
+  `;
+  return div;
+}
+
+function goster(containerId, indisler, counterId, havuz, toplamRef) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  indisler.forEach((idx, i) => {
+    const el = sureSatiri(SURELER[idx]);
+    container.appendChild(el);
+    setTimeout(() => el.classList.add('visible'), i * 80);
+  });
+  const kalan = havuz.length;
+  const toplam = toplamRef.length;
+  const gosterilen = toplam - kalan;
+  document.getElementById(counterId).textContent = `${gosterilen} / ${toplam}`;
+}
+
+// Havuzları başlat (localStorage'dan veya yeni)
+let havuz2 = havuzYukle(KEY2, ikili);
+let havuz3 = havuzYukle(KEY3, uclu);
+
+function yenile() {
+  const kombo2 = sonrakiKombo(KEY2, havuz2, ikili);
+  const kombo3 = sonrakiKombo(KEY3, havuz3, uclu);
+
+  goster('sureler2', kombo2, 'counter2', havuz2, ikili);
+  goster('sureler3', kombo3, 'counter3', havuz3, uclu);
+}
+
+// İlk yükleme — son gösterilen kombinasyonu tekrar göster, yeni çekme
+function ilkYukleme() {
+  try {
+    const son2 = localStorage.getItem('namaz_son2');
+    const son3 = localStorage.getItem('namaz_son3');
+    if (son2 && son3) {
+      goster('sureler2', JSON.parse(son2), 'counter2', havuz2, ikili);
+      goster('sureler3', JSON.parse(son3), 'counter3', havuz3, uclu);
+      return;
+    }
+  } catch(e) {}
+  yenile();
+}
+
+// Yenile butonuna basınca son kombinasyonu da kaydet
+const _yenile = yenile;
+window.yenile = function() {
+  const kombo2 = sonrakiKombo(KEY2, havuz2, ikili);
+  const kombo3 = sonrakiKombo(KEY3, havuz3, uclu);
+  try {
+    localStorage.setItem('namaz_son2', JSON.stringify(kombo2));
+    localStorage.setItem('namaz_son3', JSON.stringify(kombo3));
+  } catch(e) {}
+  goster('sureler2', kombo2, 'counter2', havuz2, ikili);
+  goster('sureler3', kombo3, 'counter3', havuz3, uclu);
+};
+
+ilkYukleme();
+</script>
+</body>
+</html>

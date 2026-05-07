@@ -135,9 +135,7 @@ header p {
 .btn-wrap {
   margin-top: 1.5rem;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 1rem;
 }
 
 button {
@@ -157,11 +155,6 @@ button {
 button:hover { background: var(--btn-hover); }
 button:active { transform: scale(0.98); }
 
-.status {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
-}
 
 footer {
   margin-top: 2rem;

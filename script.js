@@ -155,12 +155,17 @@ async function hicriTarihGetir() {
 
   try {
     const hedef = `https://gadget.turktakvim.com/gadget.php?pg=1&sid=5753&cityID=5753&_=${Date.now()}`;
+    console.log('[hicri] istek:', hedef);
     const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(hedef));
+    console.log('[hicri] status:', res.status);
     const html = await res.text();
+    console.log('[hicri] html (ilk 500):', html.slice(0, 500));
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const div = doc.getElementById('hicritarih');
+    console.log('[hicri] div:', div ? div.outerHTML : 'bulunamadı');
     if (!div) return;
     const tarih = div.textContent.trim();
+    console.log('[hicri] tarih:', tarih);
     if (!tarih) return;
     document.getElementById('hicri-tarih').textContent = tarih;
     try {

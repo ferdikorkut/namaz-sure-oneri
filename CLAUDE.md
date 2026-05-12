@@ -2,7 +2,14 @@
 
 ## Ne yapıyor?
 
-Namaz vakitlerinde hangi sureleri okuyacağını öneren tek sayfalık bir web uygulaması (`index.html`). 2 Rekat ve 3 Rekat için ayrı ayrı sure kombinasyonu önerir.
+Namaz vakitlerinde hangi sureleri okuyacağını öneren tek sayfalık bir web uygulaması. 2 Rekat ve 3 Rekat için ayrı ayrı sure kombinasyonu önerir. Ayrıca güncel Hicri tarihi gösterir.
+
+## Dosya yapısı
+
+- `index.html` — sadece HTML yapısı
+- `style.css` — tüm stiller
+- `script.js` — tüm JavaScript
+- `CLAUDE.md` — proje notları
 
 ## Sure listesi
 
@@ -20,13 +27,27 @@ Namaz vakitlerinde hangi sureleri okuyacağını öneren tek sayfalık bir web u
 - **localStorage**: Havuz ve son gösterilen kombinasyon kaydedilir — sayfa kapanınca kaldığı yerden devam eder
 - **İlk yükleme**: Son gösterilen kombinasyonu tekrar gösterir, yeni çekmez
 
+## Hicri tarih
+
+- `corsproxy.io` üzerinden `gadget.turktakvim.com/gadget.php` endpoint'ine istek atılır
+- Gelen veri noktalı virgülle ayrılmış formatta gelir, index 26 Hicri tarihi taşır
+- Tarih turktakvim'in kendi formatıyla gösterilir, hiçbir çeviri yapılmaz
+- Günlük cache: cihazın tarihine göre günde bir kez sorgu atılır, aynı gün localStorage'dan gösterilir
+- Cache key: `hicri_tarih_v3` / `hicri_gun_v3`
+
 ## Tasarım kararları
 
-- Font: IBM Plex Mono (arayüz) + Lora (sure isimleri)
+- Font: sistem sans-serif (`system-ui, -apple-system, ...`) — Google Fonts kullanılmıyor
 - Renk paleti: krem arka plan (`#f5f4f0`), beyaz kart, koyu metin
 - Buton: orta gri-bej (`#6b6860`), `border-radius: 6px`
-- Başlık ve Yenile butonu ortalı; içerik sayfanın üstünden başlar (`justify-content: flex-start`)
-- Tek kart tasarımı, sade ve minimal
+- Başlık, Hicri tarih ve Yenile butonu ortalı
+- İçerik sayfanın üstünden başlar (`justify-content: flex-start`)
+- Kartlar: `border-radius: 8px`
+- Body padding: `0.5rem`
+
+## Yayın
+
+GitHub Pages: https://ferdikorkut.github.io/namaz-sure-oneri/
 
 ## Yapılabilecekler (fikir havuzu)
 

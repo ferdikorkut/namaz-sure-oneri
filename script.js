@@ -122,6 +122,7 @@ window.yenile = function() {
   } catch(e) {}
   goster('sureler2', kombo2, 'counter2', havuz2, ikili);
   goster('sureler3', kombo3, 'counter3', havuz3, uclu);
+  hicriTarihGetir();
 };
 
 function ilkYukleme() {
@@ -170,3 +171,11 @@ async function hicriTarihGetir() {
 }
 
 hicriTarihGetir();
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') hicriTarihGetir();
+});
+
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) hicriTarihGetir();
+});

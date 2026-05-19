@@ -344,7 +344,7 @@ function goster(containerId, indisler, counterId, havuz, toplamRef) {
   });
   const kalan = havuz.length;
   const toplam = toplamRef.length;
-  const gosterilen = toplam - kalan;
+  const gosterilen = kalan === toplam ? toplam : toplam - kalan;
   document.getElementById(counterId).textContent = `← ${gosterilen} / ${toplam} →`;
 }
 

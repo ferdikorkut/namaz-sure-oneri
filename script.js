@@ -174,6 +174,39 @@ function drawerKapat() {
 
 document.getElementById('drawer-overlay').addEventListener('click', drawerKapat);
 
+function kartSwiped(kartEl, yenileFn, fark) {
+  const slideOut = fark < 0 ? 'slide-out-left' : 'slide-out-right';
+  const slideIn  = fark < 0 ? 'slide-in-left'  : 'slide-in-right';
+  kartEl.classList.add(slideOut);
+  setTimeout(() => {
+    kartEl.classList.remove(slideOut);
+    yenileFn();
+    kartEl.classList.add(slideIn);
+    setTimeout(() => kartEl.classList.remove(slideIn), 250);
+  }, 250);
+}
+
+function swipeEkle(kartId, yenileFn) {
+  const el = document.getElementById(kartId);
+  let touchBasX = null;
+
+  el.addEventListener('touchstart', (e) => {
+    if (document.getElementById('drawer').classList.contains('acik')) return;
+    touchBasX = e.touches[0].clientX;
+  }, { passive: true });
+
+  el.addEventListener('touchend', (e) => {
+    if (touchBasX === null) return;
+    const fark = e.changedTouches[0].clientX - touchBasX;
+    touchBasX = null;
+    if (Math.abs(fark) < 50) return;
+    kartSwiped(el, yenileFn, fark);
+  }, { passive: true });
+}
+
+swipeEkle('card2', yenile2);
+swipeEkle('card3', yenile3);
+
 const SURELER = [
   { isim: "Âyetü'l-kürsî", no: 2,   ayet: 1  },
   { isim: "Hüvallahüllezi",  no: 59,  ayet: 3  },
@@ -293,15 +326,21 @@ function goster(containerId, indisler, counterId, havuz, toplamRef) {
 let havuz2 = havuzYukle(KEY2, ikili);
 let havuz3 = havuzYukle(KEY3, uclu);
 
-window.yenile = function() {
+function yenile2() {
   const kombo2 = sonrakiKombo(KEY2, havuz2, ikili);
-  const kombo3 = sonrakiKombo(KEY3, havuz3, uclu);
-  try {
-    localStorage.setItem(KEY_SON2, JSON.stringify(kombo2));
-    localStorage.setItem(KEY_SON3, JSON.stringify(kombo3));
-  } catch(e) {}
+  try { localStorage.setItem(KEY_SON2, JSON.stringify(kombo2)); } catch(e) {}
   goster('sureler2', kombo2, 'counter2', havuz2, ikili);
+}
+
+function yenile3() {
+  const kombo3 = sonrakiKombo(KEY3, havuz3, uclu);
+  try { localStorage.setItem(KEY_SON3, JSON.stringify(kombo3)); } catch(e) {}
   goster('sureler3', kombo3, 'counter3', havuz3, uclu);
+}
+
+window.yenile = function() {
+  yenile2();
+  yenile3();
   hicriTarihGetir();
 };
 

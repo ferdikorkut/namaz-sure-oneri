@@ -26,31 +26,34 @@ Namaz vakitlerinde hangi sureleri okuyacağını öneren tek sayfalık bir web u
 - **Pool sistemi**: Tüm geçerli kombinasyonlar hesaplanır, Fisher-Yates ile karıştırılır, tükenene kadar tekrar gösterilmez
 - **localStorage**: Havuz ve son gösterilen kombinasyon kaydedilir — sayfa kapanınca kaldığı yerden devam eder
 - **İlk yükleme**: Son gösterilen kombinasyonu tekrar gösterir, yeni çekmez
+- **Swipe**: Kartlar sola kaydırılarak yenilenir — parmak hareketi canlı takip eder, eşik 60px
+- **Yenile butonu**: Kaldırıldı, yerini swipe aldı
 
 ## Hicri tarih
 
 - `corsproxy.io` üzerinden `gadget.turktakvim.com/gadget.php` endpoint'ine istek atılır
 - Gelen veri noktalı virgülle ayrılmış formatta gelir, index 26 Hicri tarihi taşır
 - Tarih turktakvim'in kendi formatıyla gösterilir, hiçbir çeviri yapılmaz
-- Günlük cache: cihazın tarihine göre günde bir kez sorgu atılır, aynı gün localStorage'dan gösterilir
+- Günlük cache: cihazın **yerel** tarihine göre günde bir kez sorgu atılır
+- `visibilitychange` ve `pageshow` olaylarında da kontrol edilir (iPhone ana ekran uyumluluğu)
 - Cache key: `hicri_tarih_v3` / `hicri_gun_v3`
+
+## Sure metinleri (drawer)
+
+- Sure adına tıklayınca ekranın altından drawer açılır
+- 14 surenin tamamının Türkçe okunuşu `SURE_METINLER` objesinde script.js içinde gömülü
+- Âyetü'l-kürsî ve Hüvallahüllezi için `subtitle` alanı var (parantezli ek bilgi)
+- Numaralı ayetler (`1-`, `2-` vb.) hanging indent ile hizalanır
 
 ## Tasarım kararları
 
 - Font: sistem sans-serif (`system-ui, -apple-system, ...`) — Google Fonts kullanılmıyor
 - Renk paleti: krem arka plan (`#f5f4f0`), beyaz kart, koyu metin
-- Buton: orta gri-bej (`#6b6860`), `border-radius: 6px`
-- Başlık, Hicri tarih ve Yenile butonu ortalı
-- İçerik sayfanın üstünden başlar (`justify-content: flex-start`)
 - Kartlar: `border-radius: 8px`
-- Body padding: `0.5rem`
+- Body padding: `1rem`
+- Sayaç: kartın altında ortalanmış, `← X / toplam →` formatında
+- Başlık ve Hicri tarih ortalı, içerik sayfanın üstünden başlar
 
 ## Yayın
 
 GitHub Pages: https://ferdikorkut.github.io/namaz-sure-oneri/
-
-## Yapılabilecekler (fikir havuzu)
-
-- Karanlık mod
-- Sure isimlerinin Arapça gösterimi
-- Namaz vakti seçimi (sabah/öğle/ikindi/akşam/yatsı) ile farklı öneriler

@@ -174,33 +174,58 @@ function drawerKapat() {
 
 document.getElementById('drawer-overlay').addEventListener('click', drawerKapat);
 
-function kartSwiped(kartEl, yenileFn, fark) {
-  const slideOut = fark < 0 ? 'slide-out-left' : 'slide-out-right';
-  const slideIn  = fark < 0 ? 'slide-in-left'  : 'slide-in-right';
-  kartEl.classList.add(slideOut);
-  setTimeout(() => {
-    kartEl.classList.remove(slideOut);
-    yenileFn();
-    kartEl.classList.add(slideIn);
-    setTimeout(() => kartEl.classList.remove(slideIn), 250);
-  }, 250);
-}
-
 function swipeEkle(kartId, yenileFn) {
   const el = document.getElementById(kartId);
-  let touchBasX = null;
+  let startX = null, startY = null, surukle = false;
 
   el.addEventListener('touchstart', (e) => {
     if (document.getElementById('drawer').classList.contains('acik')) return;
-    touchBasX = e.touches[0].clientX;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    surukle = false;
+    el.style.transition = 'none';
+  }, { passive: true });
+
+  el.addEventListener('touchmove', (e) => {
+    if (startX === null) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    if (!surukle && Math.abs(dx) < Math.abs(dy)) return;
+    surukle = true;
+    const opacity = Math.max(0.5, 1 - Math.abs(dx) / 250);
+    el.style.transform = `translateX(${dx}px)`;
+    el.style.opacity = opacity;
   }, { passive: true });
 
   el.addEventListener('touchend', (e) => {
-    if (touchBasX === null) return;
-    const fark = e.changedTouches[0].clientX - touchBasX;
-    touchBasX = null;
-    if (Math.abs(fark) < 50) return;
-    kartSwiped(el, yenileFn, fark);
+    if (startX === null) { startX = null; return; }
+    const fark = e.changedTouches[0].clientX - startX;
+    startX = null;
+
+    if (!surukle || fark > -60) {
+      el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+      el.style.transform = 'translateX(0)';
+      el.style.opacity = '1';
+      return;
+    }
+
+    const hedef = '-110%';
+    const giris = '110%';
+
+    el.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+    el.style.transform = `translateX(${hedef})`;
+    el.style.opacity = '0';
+
+    setTimeout(() => {
+      el.style.transition = 'none';
+      el.style.transform = `translateX(${giris})`;
+      el.style.opacity = '0';
+      yenileFn();
+      el.offsetHeight;
+      el.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
+      el.style.transform = 'translateX(0)';
+      el.style.opacity = '1';
+    }, 200);
   }, { passive: true });
 }
 
@@ -320,7 +345,7 @@ function goster(containerId, indisler, counterId, havuz, toplamRef) {
   const kalan = havuz.length;
   const toplam = toplamRef.length;
   const gosterilen = toplam - kalan;
-  document.getElementById(counterId).textContent = `${gosterilen} / ${toplam}`;
+  document.getElementById(counterId).textContent = `← ${gosterilen} / ${toplam} →`;
 }
 
 let havuz2 = havuzYukle(KEY2, ikili);

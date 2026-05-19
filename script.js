@@ -1,9 +1,10 @@
 const SURE_METINLER = {
   2: {
-    baslik: "Ayetel Kürsi Okunuşu",
+    baslik: "Âyetü'l-kürsî Okunuşu",
+    subtitle: "(Bakara 255)",
     ayetler: [
       "Bismillahirrahmânirrahîm.",
-      "Bakara 255 - Allâhü lâ ilâhe illâ hüvel hayyül kayyûm, lâ te'huzühu sinetün velâ nevm,",
+      " - Allâhü lâ ilâhe illâ hüvel hayyül kayyûm, lâ te'huzühu sinetün velâ nevm,",
       "lehu mâ fissemâvâti ve ma fil'ard, men zellezi yeşfeu indehu illâ bi'iznih,",
       "ya'lemü mâ beyne eydiyhim vemâ halfehüm,",
       "velâ yü-hîtûne bi'şey'in min ilmihî illâ bima şâe vesia kürsiyyühüssemâvâti vel'ard,",
@@ -12,6 +13,7 @@ const SURE_METINLER = {
   },
   59: {
     baslik: "Hüvallahüllezi Suresinin Okunuşu",
+    subtitle: "(Haşr Suresi, 22. 23. ve 24. Ayet)",
     ayetler: [
       "Bismillahirrahmanirrahim.",
       "22- Hüvallahüllezi lâ ilâhe illâ hû. 'Âlimü'l-ğaybi veş-şehâdeh. Hüver-rahmânür-rahîm.",
@@ -153,8 +155,14 @@ function drawerAc(sure) {
   const veri = SURE_METINLER[sure.no];
   if (!veri) return;
   document.getElementById('drawer-baslik').textContent = veri.baslik;
+  const subtitle = document.getElementById('drawer-subtitle');
+  subtitle.textContent = veri.subtitle || '';
+  subtitle.style.display = veri.subtitle ? 'block' : 'none';
   const icerik = document.getElementById('drawer-icerik');
-  icerik.innerHTML = veri.ayetler.map(a => `<p>${a}</p>`).join('');
+  icerik.innerHTML = veri.ayetler.map(a => {
+    const cls = /^\d+-/.test(a) ? 'numarali' : '';
+    return `<p class="${cls}">${a}</p>`;
+  }).join('');
   document.getElementById('drawer-overlay').classList.add('acik');
   document.getElementById('drawer').classList.add('acik');
 }

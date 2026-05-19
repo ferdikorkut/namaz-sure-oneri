@@ -210,8 +210,15 @@ footer {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.25rem;
   text-align: center;
+}
+
+#drawer-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 1.25rem;
 }
 
 #drawer-icerik p {
@@ -222,11 +229,18 @@ footer {
   border-bottom: 1px solid var(--border);
 }
 
+#drawer-icerik p.numarali {
+  padding-left: 1.25rem;
+  text-indent: -1.25rem;
+}
+
 #drawer-icerik p:first-child {
   color: var(--text-secondary);
   font-style: italic;
   border-bottom: none;
   margin-bottom: 0.5rem;
+  padding-left: 0;
+  text-indent: 0;
 }
 
 #drawer-icerik p:last-child {

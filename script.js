@@ -1,3 +1,171 @@
+const SURE_METINLER = {
+  2: {
+    baslik: "Ayetel Kürsi Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "Bakara 255 - Allâhü lâ ilâhe illâ hüvel hayyül kayyûm, lâ te'huzühu sinetün velâ nevm,",
+      "lehu mâ fissemâvâti ve ma fil'ard, men zellezi yeşfeu indehu illâ bi'iznih,",
+      "ya'lemü mâ beyne eydiyhim vemâ halfehüm,",
+      "velâ yü-hîtûne bi'şey'in min ilmihî illâ bima şâe vesia kürsiyyühüssemâvâti vel'ard,",
+      "velâ yeûdühû hıfzuhümâ ve hüvel aliyyül azim.",
+    ]
+  },
+  59: {
+    baslik: "Hüvallahüllezi Suresinin Okunuşu",
+    ayetler: [
+      "Bismillahirrahmanirrahim.",
+      "22- Hüvallahüllezi lâ ilâhe illâ hû. 'Âlimü'l-ğaybi veş-şehâdeh. Hüver-rahmânür-rahîm.",
+      "23- Hüvallâhüllezî lâ ilâhe illâ hû. El-melikül-kuddûsüs-selâmül-mü'minül-müheyminül-'azîzül-cebbârul-mütekebbir. Sübhânellâhi 'ammâ yüşrikûn.",
+      "24- Hüvallâhül-hâlikul-bâriül-müsavviru lehül-esmâülhüsnâ. Yüsebbihu lehü mâ fis-semâvâti vel-ard. Ve hüvel-'azîzül-hakîm.",
+    ]
+  },
+  97: {
+    baslik: "Kadir Suresi Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- İnna enzelnahü fiy leyletilkadr",
+      "2- Ve ma edrake ma leyletülkadr",
+      "3- Leyletülkadri hayrüm min elfi şehr",
+      "4- Tenezzelülmelaiketü verruhu fiyha biizni rabbihim min külli emr",
+      "5- Selamün hiye hatta matle'ılfecr",
+    ]
+  },
+  103: {
+    baslik: "Asr Suresinin Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Vel asr",
+      "2- İnnel insane le fi husr",
+      "3- İllellezıne amenu ve amilus salihati ve tevasav bil hakkı ve tevasav bis sabr",
+    ]
+  },
+  105: {
+    baslik: "Fil Suresinin Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Elem tera keyfe fe'ale rabbüke biashâbilfîl",
+      "2- Elem yec'al keydehüm fî tadlîl",
+      "3- Ve ersele aleyhim tayran ebâbîl",
+      "4- Termîhim bihicâratin min siccîl",
+      "5- Fece'alehüm ke'asfin me'kûl",
+    ]
+  },
+  106: {
+    baslik: "Kureyş Suresinin Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Li'î lâfi Kurayş'in",
+      "2- Îlâfihim rihleteşşitâi vessayf",
+      "3- Felya'büdû rabbe hâzelbeyt",
+      "4- Ellezî et'amehüm min cû'in ve âmenehüm min havf",
+    ]
+  },
+  107: {
+    baslik: "Maun Suresinin Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Era'eytellezî yükezzibü biddîn",
+      "2- Fezâlikellezî, yedu'ulyetîm",
+      "3- Velâ yehüddü alâ ta'âmilmiskîn",
+      "4- Feveylün lilmüsallîn",
+      "5- Ellezîne hüman salâtihim sâhûn",
+      "6- Ellezîne hüm yürâûne",
+      "7- Ve yemne'ûnelmâ'ûn",
+    ]
+  },
+  108: {
+    baslik: "Kevser Suresi Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- İnnâ a'taynâkel kevser",
+      "2- Fesalli lirabbike venhar",
+      "3- İnne şânieke hüvel'ebter",
+    ]
+  },
+  109: {
+    baslik: "Kafirun Suresi Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Kul yâ eyyühel kâfirûn",
+      "2- Lâ a'büdü mâ ta'büdûn",
+      "3- Ve lâ entüm âbidûne mâ a'büd",
+      "4- Ve lâ ene âbidün mâ abedtüm",
+      "5- Ve lâ entüm âbidûne mâ a'büd",
+      "6- Leküm dînüküm veliye dîn",
+    ]
+  },
+  110: {
+    baslik: "Nasr Suresi Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- İzâ câe nasrullahi velfeth",
+      "2- Ve raeytennâse yedhulûne fî dinillâhi efvâcâ",
+      "3- Fesebbih bihamdi rabbike vestağfirh, İnnehû kâne tevvâbâ",
+    ]
+  },
+  111: {
+    baslik: "Tebbet Suresi Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Tebbet yedâ ebî lehebin ve tebb",
+      "2- Mâ eğnâ anhü mâlühû ve mâ keseb",
+      "3- Seyeslâ nâren zâte leheb",
+      "4- Vemraetühû hammâletelhatab",
+      "5- Fî cî dihâ hablün min mesed",
+    ]
+  },
+  112: {
+    baslik: "İhlas Suresinin Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Kul hüvellâhü ehad",
+      "2- Allâhüssamed",
+      "3- Lem yelid ve lem yûled",
+      "4- Ve lem yekün lehû küfüven ehad",
+    ]
+  },
+  113: {
+    baslik: "Felak Suresi Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Kul e'ûzü birabbil felak",
+      "2- Min şerri mâ halak",
+      "3- Ve min şerri ğasikın izâ vekab",
+      "4- Ve min şerrinneffâsâti fil'ukad",
+      "5- Ve min şerri hâsidin izâ hased",
+    ]
+  },
+  114: {
+    baslik: "Nas Suresinin Okunuşu",
+    ayetler: [
+      "Bismillahirrahmânirrahîm.",
+      "1- Kul e'ûzü birabbinnâs",
+      "2- Melikinnâs",
+      "3- İlâhinnâs",
+      "4- Min şerrilvesvâsilhannâs",
+      "5- Ellezî yüvesvisü fî sudûrinnâsi",
+      "6- Minelcinneti vennâs",
+    ]
+  },
+};
+
+function drawerAc(sure) {
+  const veri = SURE_METINLER[sure.no];
+  if (!veri) return;
+  document.getElementById('drawer-baslik').textContent = veri.baslik;
+  const icerik = document.getElementById('drawer-icerik');
+  icerik.innerHTML = veri.ayetler.map(a => `<p>${a}</p>`).join('');
+  document.getElementById('drawer-overlay').classList.add('acik');
+  document.getElementById('drawer').classList.add('acik');
+}
+
+function drawerKapat() {
+  document.getElementById('drawer-overlay').classList.remove('acik');
+  document.getElementById('drawer').classList.remove('acik');
+}
+
+document.getElementById('drawer-overlay').addEventListener('click', drawerKapat);
+
 const SURELER = [
   { isim: "Âyetü'l-kürsî", no: 2,   ayet: 1  },
   { isim: "Hüvallahüllezi",  no: 59,  ayet: 3  },
@@ -88,11 +256,15 @@ function sonrakiKombo(key, havuz, tumKombolar) {
 function sureSatiri(sure) {
   const div = document.createElement('div');
   div.className = 'sure-row';
+  const tiklanabilir = SURE_METINLER[sure.no] ? 'tiklanabilir' : '';
   div.innerHTML = `
-    <span class="sure-name">${sure.isim}</span>
+    <span class="sure-name ${tiklanabilir}">${sure.isim}</span>
     <span class="sure-ayet">${sure.ayet}</span>
     <span class="sure-no">${sure.no}</span>
   `;
+  if (tiklanabilir) {
+    div.querySelector('.sure-name').addEventListener('click', () => drawerAc(sure));
+  }
   return div;
 }
 

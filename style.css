@@ -162,3 +162,76 @@ footer {
   color: var(--text-muted);
   letter-spacing: 0.06em;
 }
+
+.sure-name.tiklanabilir {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 3px;
+}
+
+#drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 10;
+}
+
+#drawer-overlay.acik {
+  display: block;
+}
+
+#drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-radius: 14px 14px 0 0;
+  padding: 1rem 1.5rem 2.5rem;
+  z-index: 11;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+#drawer.acik {
+  transform: translateY(0);
+}
+
+#drawer-handle {
+  width: 2.5rem;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 auto 1.25rem;
+}
+
+#drawer-baslik {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+#drawer-icerik p {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.8;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+#drawer-icerik p:first-child {
+  color: var(--text-secondary);
+  font-style: italic;
+  border-bottom: none;
+  margin-bottom: 0.5rem;
+}
+
+#drawer-icerik p:last-child {
+  border-bottom: none;
+}

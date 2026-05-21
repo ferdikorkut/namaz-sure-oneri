@@ -190,40 +190,44 @@ function swipeEkle(kartId, yenileFn) {
     if (startX === null) return;
     const dx = e.touches[0].clientX - startX;
     const dy = e.touches[0].clientY - startY;
-    if (!surukle && Math.abs(dx) < Math.abs(dy)) return;
     surukle = true;
-    const opacity = Math.max(0.5, 1 - Math.abs(dx) / 250);
-    el.style.transform = `translateX(${dx}px)`;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const opacity = Math.max(0.4, 1 - dist / 200);
+    el.style.transform = `translate(${dx}px, ${dy}px)`;
     el.style.opacity = opacity;
   }, { passive: true });
 
   el.addEventListener('touchend', (e) => {
     if (startX === null) { startX = null; return; }
-    const fark = e.changedTouches[0].clientX - startX;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
     startX = null;
 
-    if (!surukle || fark > -60) {
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (!surukle || dist < 60) {
       el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-      el.style.transform = 'translateX(0)';
+      el.style.transform = 'translate(0, 0)';
       el.style.opacity = '1';
       return;
     }
 
-    const hedef = '-110%';
-    const giris = '110%';
+    const aci = Math.atan2(dy, dx);
+    const flyX = Math.cos(aci) * window.innerWidth * 1.5;
+    const flyY = Math.sin(aci) * window.innerHeight * 1.5;
 
     el.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
-    el.style.transform = `translateX(${hedef})`;
+    el.style.transform = `translate(${flyX}px, ${flyY}px)`;
     el.style.opacity = '0';
 
     setTimeout(() => {
       el.style.transition = 'none';
-      el.style.transform = `translateX(${giris})`;
+      el.style.transform = 'translateX(110%)';
       el.style.opacity = '0';
       yenileFn();
       el.offsetHeight;
       el.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
-      el.style.transform = 'translateX(0)';
+      el.style.transform = 'translate(0, 0)';
       el.style.opacity = '1';
     }, 200);
   }, { passive: true });

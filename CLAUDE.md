@@ -26,7 +26,7 @@ Namaz vakitlerinde hangi sureleri okuyacağını öneren tek sayfalık bir web u
 - **Pool sistemi**: Tüm geçerli kombinasyonlar hesaplanır, Fisher-Yates ile karıştırılır, tükenene kadar tekrar gösterilmez
 - **localStorage**: Havuz ve son gösterilen kombinasyon kaydedilir — sayfa kapanınca kaldığı yerden devam eder
 - **İlk yükleme**: Son gösterilen kombinasyonu tekrar gösterir, yeni çekmez
-- **Swipe**: Kartlar sola kaydırılarak yenilenir — parmak hareketi canlı takip eder, eşik 60px
+- **Swipe**: Kartlar herhangi bir yönde fırlatılarak yenilenir — parmak hareketi canlı takip eder (2D), eşik 60px. Yeni kart yerinde belirir (fade in).
 - **Yenile butonu**: Kaldırıldı, yerini swipe aldı
 
 ## Hicri tarih
@@ -49,10 +49,11 @@ Namaz vakitlerinde hangi sureleri okuyacağını öneren tek sayfalık bir web u
 
 - Font: sistem sans-serif (`system-ui, -apple-system, ...`) — Google Fonts kullanılmıyor
 - Renk paleti: krem arka plan (`#f5f4f0`), beyaz kart, koyu metin
-- Kartlar: `border-radius: 8px`
+- Kartlar: `border-radius: 8px`, `position: relative` (z-index için)
 - Body padding: `1rem`
-- Sayaç: kartın altında ortalanmış, `← X / toplam →` formatında
+- Sayaç: kartın sağ altında, `X / toplam` formatında
 - Başlık ve Hicri tarih ortalı, içerik sayfanın üstünden başlar
+- `#viewport-clip`: tüm içeriği sarar, `overflow: hidden` ile sayfa genişlemesini engeller
 
 ## Yayın
 

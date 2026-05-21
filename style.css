@@ -139,7 +139,7 @@ header p {
   color: var(--text-muted);
   letter-spacing: 0.08em;
   margin-top: 0.6rem;
-  text-align: center;
+  text-align: right;
 }
 
 

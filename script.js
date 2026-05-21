@@ -225,12 +225,11 @@ function swipeEkle(kartId, yenileFn) {
 
     setTimeout(() => {
       el.style.transition = 'none';
-      el.style.transform = 'translateX(110%)';
+      el.style.transform = 'translate(0, 0)';
       el.style.opacity = '0';
       yenileFn();
       el.offsetHeight;
-      el.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
-      el.style.transform = 'translate(0, 0)';
+      el.style.transition = 'opacity 0.25s ease';
       el.style.opacity = '1';
       el.style.zIndex = '';
     }, 200);

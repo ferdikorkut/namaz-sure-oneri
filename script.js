@@ -184,6 +184,7 @@ function swipeEkle(kartId, yenileFn) {
     startY = e.touches[0].clientY;
     surukle = false;
     el.style.transition = 'none';
+    el.style.zIndex = '5';
   }, { passive: true });
 
   el.addEventListener('touchmove', (e) => {
@@ -210,6 +211,7 @@ function swipeEkle(kartId, yenileFn) {
       el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
       el.style.transform = 'translate(0, 0)';
       el.style.opacity = '1';
+      el.style.zIndex = '';
       return;
     }
 
@@ -230,6 +232,7 @@ function swipeEkle(kartId, yenileFn) {
       el.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
       el.style.transform = 'translate(0, 0)';
       el.style.opacity = '1';
+      el.style.zIndex = '';
     }, 200);
   }, { passive: true });
 }

@@ -352,7 +352,7 @@ function goster(containerId, indisler, counterId, havuz, toplamRef) {
   const kalan = havuz.length;
   const toplam = toplamRef.length;
   const gosterilen = kalan === toplam ? toplam : toplam - kalan;
-  document.getElementById(counterId).textContent = `← ${gosterilen} / ${toplam} →`;
+  document.getElementById(counterId).textContent = `${gosterilen} / ${toplam}`;
 }
 
 let havuz2 = havuzYukle(KEY2, ikili);

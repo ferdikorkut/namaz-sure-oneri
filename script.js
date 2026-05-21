@@ -191,11 +191,12 @@ function swipeEkle(kartId, yenileFn) {
     const dx = e.touches[0].clientX - startX;
     const dy = e.touches[0].clientY - startY;
     surukle = true;
+    e.preventDefault();
     const dist = Math.sqrt(dx * dx + dy * dy);
     const opacity = Math.max(0.4, 1 - dist / 200);
     el.style.transform = `translate(${dx}px, ${dy}px)`;
     el.style.opacity = opacity;
-  }, { passive: true });
+  }, { passive: false });
 
   el.addEventListener('touchend', (e) => {
     if (startX === null) { startX = null; return; }

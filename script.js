@@ -404,6 +404,11 @@ const OZEL_GUNLER = [
     mesaj: "Allahü ekber, Allahü ekber. Lâ ilâhe illallah.<br>Vallahü ekber, Allahü ekber ve lillahil-hamd",
   },
   {
+    gunler: ["7 ZİL-HİCCE 1447"],
+    gunAdi: "(Yarın Terviye Günü)",
+    mesaj: "(Terviye günü oruç tutmak, bin köle azat etmeye, iki bin deve kurban kesmeye ve cihad için gönderilen bin ata bedeldir.) [Ebulberekat]",
+  },
+  {
     gunler: ["8 ZİL-HİCCE 1447"],
     gunAdi: "(Terviye Günü)",
     mesaj: "(Terviye günü oruç tutmak, bin köle azat etmeye, iki bin deve kurban kesmeye ve cihad için gönderilen bin ata bedeldir.) [Ebulberekat]",
@@ -412,6 +417,22 @@ const OZEL_GUNLER = [
     gunler: ["9 ZİL-HİCCE 1447"],
     gunAdi: "(Arefe Günü)",
     mesaj: "(Arefe günü [Besmeleyle] 1000 İhlâs okuyanın günahları affolup duası kabul olur.) [Ebu-ş-şeyh]",
+  },
+  {
+    gunler: ["10 ZİL-HİCCE 1447"],
+    gunAdi: "(Kurban Bayramı - 1. Gün)",
+  },
+  {
+    gunler: ["11 ZİL-HİCCE 1447"],
+    gunAdi: "(Kurban Bayramı - 2. Gün)",
+  },
+  {
+    gunler: ["12 ZİL-HİCCE 1447"],
+    gunAdi: "(Kurban Bayramı - 3. Gün)",
+  },
+  {
+    gunler: ["13 ZİL-HİCCE 1447"],
+    gunAdi: "(Kurban Bayramı - 4. Gün)",
   },
 ];
 

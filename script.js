@@ -391,20 +391,21 @@ function ilkYukleme() {
 
 ilkYukleme();
 
+const OZEL_GUNLER = [
+  {
+    gunler: [
+      "8 ZİL-HİCCE 1447",
+      "9 ZİL-HİCCE 1447",
+      "10 ZİL-HİCCE 1447",
+      "11 ZİL-HİCCE 1447",
+      "12 ZİL-HİCCE 1447",
+      "13 ZİL-HİCCE 1447",
+    ],
+    mesaj: "Allahü ekber, Allahü ekber. Lâ ilâhe illallah. Vallahü ekber, Allahü ekber ve lillahil-hamd",
+  },
+];
+
 async function hicriTarihGetir() {
-  const CACHE_TARIH = 'hicri_tarih_v3';
-  const CACHE_GUN = 'hicri_gun_v3';
-  const bugun = new Date().toISOString().slice(0, 10);
-
-  try {
-    const kayitliGun = localStorage.getItem(CACHE_GUN);
-    const kayitliTarih = localStorage.getItem(CACHE_TARIH);
-    if (kayitliTarih && kayitliGun === bugun) {
-      document.getElementById('hicri-tarih').textContent = kayitliTarih;
-      return;
-    }
-  } catch(e) {}
-
   try {
     const hedef = `https://gadget.turktakvim.com/gadget.php?pg=1&sid=5753&cityID=5753&_=${Date.now()}`;
     const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(hedef));
@@ -412,10 +413,15 @@ async function hicriTarihGetir() {
     const tarih = text.split(';')[26]?.trim();
     if (!tarih) return;
     document.getElementById('hicri-tarih').textContent = tarih;
-    try {
-      localStorage.setItem(CACHE_TARIH, tarih);
-      localStorage.setItem(CACHE_GUN, bugun);
-    } catch(e) {}
+    const mesajEl = document.getElementById('ozel-gun-mesaji');
+    const bugun = OZEL_GUNLER.find(g => g.gunler.includes(tarih));
+    if (bugun) {
+      mesajEl.textContent = bugun.mesaj;
+      mesajEl.classList.add('aktif');
+    } else {
+      mesajEl.textContent = '';
+      mesajEl.classList.remove('aktif');
+    }
   } catch(e) {
     console.warn('[hicri] hata:', e);
   }

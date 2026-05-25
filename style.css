@@ -68,6 +68,13 @@ header p {
   text-transform: none;
 }
 
+#hicri-gun-adi {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  letter-spacing: 0.03em;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -157,6 +164,16 @@ header p {
 
 #ozel-gun-mesaji.aktif {
   display: block;
+}
+
+.ozel-baslik {
+  display: block;
+  font-size: 0.75rem;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
 }
 
 footer {

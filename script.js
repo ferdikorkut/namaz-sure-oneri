@@ -394,14 +394,24 @@ ilkYukleme();
 const OZEL_GUNLER = [
   {
     gunler: [
-      "8 ZİL-HİCCE 1447",
       "9 ZİL-HİCCE 1447",
       "10 ZİL-HİCCE 1447",
       "11 ZİL-HİCCE 1447",
       "12 ZİL-HİCCE 1447",
       "13 ZİL-HİCCE 1447",
     ],
-    mesaj: "Allahü ekber, Allahü ekber. Lâ ilâhe illallah. Vallahü ekber, Allahü ekber ve lillahil-hamd",
+    baslik: "Teşrîk Tekbîri",
+    mesaj: "Allahü ekber, Allahü ekber. Lâ ilâhe illallah.<br>Vallahü ekber, Allahü ekber ve lillahil-hamd",
+  },
+  {
+    gunler: ["8 ZİL-HİCCE 1447"],
+    gunAdi: "(Terviye Günü)",
+    mesaj: "(Terviye günü oruç tutmak, bin köle azat etmeye, iki bin deve kurban kesmeye ve cihad için gönderilen bin ata bedeldir.) [Ebulberekat]",
+  },
+  {
+    gunler: ["9 ZİL-HİCCE 1447"],
+    gunAdi: "(Arefe Günü)",
+    mesaj: "(Arefe günü [Besmeleyle] 1000 İhlâs okuyanın günahları affolup duası kabul olur.) [Ebu-ş-şeyh]",
   },
 ];
 
@@ -414,12 +424,18 @@ async function hicriTarihGetir() {
     if (!tarih) return;
     document.getElementById('hicri-tarih').textContent = tarih;
     const mesajEl = document.getElementById('ozel-gun-mesaji');
-    const bugun = OZEL_GUNLER.find(g => g.gunler.includes(tarih));
-    if (bugun) {
-      mesajEl.textContent = bugun.mesaj;
+    const tarihNorm = tarih.replace(/\s+/g, ' ');
+    const eslesanler = OZEL_GUNLER.filter(g => g.gunler.includes(tarihNorm));
+    const gunAdiEl = document.getElementById('hicri-gun-adi');
+    const gunAdiGiris = eslesanler.find(g => g.gunAdi);
+    gunAdiEl.textContent = gunAdiGiris ? gunAdiGiris.gunAdi : '';
+    if (eslesanler.length) {
+      mesajEl.innerHTML = eslesanler.map(g =>
+        (g.baslik ? `<span class="ozel-baslik">${g.baslik}</span>` : '') + g.mesaj
+      ).join('<br><br>');
       mesajEl.classList.add('aktif');
     } else {
-      mesajEl.textContent = '';
+      mesajEl.innerHTML = '';
       mesajEl.classList.remove('aktif');
     }
   } catch(e) {

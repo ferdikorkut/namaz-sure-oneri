@@ -446,11 +446,11 @@ async function hicriTarihGetir() {
     document.getElementById('hicri-tarih').textContent = tarih;
     const mesajEl = document.getElementById('ozel-gun-mesaji');
     const tarihNorm = tarih.replace(/\s+/g, ' ');
-    const eslesanler = OZEL_GUNLER.filter(g => g.gunler.includes(tarihNorm));
+    const eslesenler = OZEL_GUNLER.filter(g => g.gunler.includes(tarihNorm));
     const gunAdiEl = document.getElementById('hicri-gun-adi');
-    const gunAdiGiris = eslesanler.find(g => g.gunAdi);
+    const gunAdiGiris = eslesenler.find(g => g.gunAdi);
     gunAdiEl.textContent = gunAdiGiris ? gunAdiGiris.gunAdi : '';
-    const mesajlilar = eslesanler.filter(g => g.baslik || g.mesaj);
+    const mesajlilar = eslesenler.filter(g => g.baslik || g.mesaj);
     if (mesajlilar.length) {
       mesajEl.innerHTML = mesajlilar.map(g =>
         (g.baslik ? `<span class="ozel-baslik">${g.baslik}</span>` : '') + (g.mesaj || '')

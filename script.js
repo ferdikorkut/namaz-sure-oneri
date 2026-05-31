@@ -450,9 +450,10 @@ async function hicriTarihGetir() {
     const gunAdiEl = document.getElementById('hicri-gun-adi');
     const gunAdiGiris = eslesanler.find(g => g.gunAdi);
     gunAdiEl.textContent = gunAdiGiris ? gunAdiGiris.gunAdi : '';
-    if (eslesanler.length) {
-      mesajEl.innerHTML = eslesanler.map(g =>
-        (g.baslik ? `<span class="ozel-baslik">${g.baslik}</span>` : '') + g.mesaj
+    const mesajlilar = eslesanler.filter(g => g.baslik || g.mesaj);
+    if (mesajlilar.length) {
+      mesajEl.innerHTML = mesajlilar.map(g =>
+        (g.baslik ? `<span class="ozel-baslik">${g.baslik}</span>` : '') + (g.mesaj || '')
       ).join('<br><br>');
       mesajEl.classList.add('aktif');
     } else {
